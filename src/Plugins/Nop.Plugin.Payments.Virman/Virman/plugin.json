@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Payment methods",
+  "FriendlyName": "Virman",
+  "SystemName": "Payments.Virman",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.20" ],
+  "Author": "Dubravko Cvikl",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Payments.Virman.dll",
+  "Description": "This plugin allows paying with PayPal Standard"
+}
