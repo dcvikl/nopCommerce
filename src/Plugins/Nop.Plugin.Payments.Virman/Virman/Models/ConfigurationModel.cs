@@ -1,5 +1,5 @@
-﻿using Nop.Web.Framework;
-using Nop.Web.Framework.Mvc;
+﻿using Nop.Web.Framework.Models;
+using Nop.Web.Framework.Mvc.ModelBinding;
 
 namespace Nop.Plugin.Payments.Virman.Models
 {
@@ -14,5 +14,9 @@ namespace Nop.Plugin.Payments.Virman.Models
         [NopResourceDisplayName("Plugins.Payment.Virman.AdditionalFeePercentage")]
         public bool AdditionalFeePercentage { get; set; }
         public bool AdditionalFeePercentage_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Plugins.Payment.Virman.ShippableProductRequired")]
+        public bool ShippableProductRequired { get; set; }
+        public bool ShippableProductRequired_OverrideForStore { get; set; }
     }
 }
