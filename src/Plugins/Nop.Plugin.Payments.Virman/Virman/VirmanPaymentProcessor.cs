@@ -522,7 +522,18 @@ namespace Nop.Plugin.Payments.Virman
             }
         }
 
+
+        /// <summary>
+        /// Gets a payment method description that will be displayed on checkout pages in the public store
+        /// </summary>
+        public string PaymentMethodDescription
+        {
+            //return description of this payment method to be display on "payment method" checkout step. good practice is to make it localizable
+            //for example, for a redirection payment method, description may be like this: "You will be redirected to PayPal site to complete the payment"
+            get { return _localizationService.GetResource("Plugins.Payment.Virman.PaymentMethodDescription"); }
+        }
+
         #endregion
-        
+
     }
 }
