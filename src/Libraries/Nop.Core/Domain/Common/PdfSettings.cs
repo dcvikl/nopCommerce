@@ -33,6 +33,21 @@ namespace Nop.Core.Domain.Common
         public string FontFileName { get; set; }
 
         /// <summary>
+        /// Gets or sets the font file name that will be used
+        /// </summary>
+        public string FontFileNameItalic { get; set; }
+
+        /// <summary>
+        /// Gets or sets the font file name that will be used
+        /// </summary>
+        public string FontFileNameBold { get; set; }
+
+        /// <summary>
+        /// Gets or sets the font file name that will be used
+        /// </summary>
+        public string FontFileNameBoldItalic { get; set; }
+
+        /// <summary>
         /// Gets or sets the text that will appear at the bottom of invoices (column 1)
         /// </summary>
         public string InvoiceFooterTextColumn1 { get; set; }
@@ -41,5 +56,10 @@ namespace Nop.Core.Domain.Common
         /// Gets or sets the text that will appear at the bottom of invoices (column 1)
         /// </summary>
         public string InvoiceFooterTextColumn2 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the stationary to be used
+        /// </summary>
+        public string StationaryFileName { get; set; }
     }
 }

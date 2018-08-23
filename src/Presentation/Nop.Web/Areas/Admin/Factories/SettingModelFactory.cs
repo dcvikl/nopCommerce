@@ -463,7 +463,12 @@ namespace Nop.Web.Areas.Admin.Factories
                 LogoPictureId = pdfSettings.LogoPictureId,
                 DisablePdfInvoicesForPendingOrders = pdfSettings.DisablePdfInvoicesForPendingOrders,
                 InvoiceFooterTextColumn1 = pdfSettings.InvoiceFooterTextColumn1,
-                InvoiceFooterTextColumn2 = pdfSettings.InvoiceFooterTextColumn2
+                InvoiceFooterTextColumn2 = pdfSettings.InvoiceFooterTextColumn2,
+                StationaryFileName = pdfSettings.StationaryFileName,
+                FontFileName = pdfSettings.FontFileName,
+                FontFileNameItalic = pdfSettings.FontFileNameItalic,
+                FontFileNameBold = pdfSettings.FontFileNameBold,
+                FontFileNameBoldItalic = pdfSettings.FontFileNameBoldItalic
             };
 
             if (storeId <= 0)
@@ -475,6 +480,11 @@ namespace Nop.Web.Areas.Admin.Factories
             model.DisablePdfInvoicesForPendingOrders_OverrideForStore = _settingService.SettingExists(pdfSettings, x => x.DisablePdfInvoicesForPendingOrders, storeId);
             model.InvoiceFooterTextColumn1_OverrideForStore = _settingService.SettingExists(pdfSettings, x => x.InvoiceFooterTextColumn1, storeId);
             model.InvoiceFooterTextColumn2_OverrideForStore = _settingService.SettingExists(pdfSettings, x => x.InvoiceFooterTextColumn2, storeId);
+            model.StationaryFileName_OverrideForStore = _settingService.SettingExists(pdfSettings, x => x.StationaryFileName, storeId);
+            model.FontFileName_OverrideForStore = _settingService.SettingExists(pdfSettings, x => x.FontFileName, storeId);
+            model.FontFileNameItalic_OverrideForStore = _settingService.SettingExists(pdfSettings, x => x.FontFileNameItalic, storeId);
+            model.FontFileNameBold_OverrideForStore = _settingService.SettingExists(pdfSettings, x => x.FontFileNameBold, storeId);
+            model.FontFileNameBoldItalic_OverrideForStore = _settingService.SettingExists(pdfSettings, x => x.FontFileNameBoldItalic, storeId);
 
             return model;
         }

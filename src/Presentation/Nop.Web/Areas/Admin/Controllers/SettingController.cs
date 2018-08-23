@@ -1326,6 +1326,11 @@ namespace Nop.Web.Areas.Admin.Controllers
             pdfSettings.DisablePdfInvoicesForPendingOrders = model.PdfSettings.DisablePdfInvoicesForPendingOrders;
             pdfSettings.InvoiceFooterTextColumn1 = model.PdfSettings.InvoiceFooterTextColumn1;
             pdfSettings.InvoiceFooterTextColumn2 = model.PdfSettings.InvoiceFooterTextColumn2;
+            pdfSettings.StationaryFileName = model.PdfSettings.StationaryFileName;
+            pdfSettings.StationaryFileName = model.PdfSettings.FontFileName;
+            pdfSettings.StationaryFileName = model.PdfSettings.FontFileNameItalic;
+            pdfSettings.StationaryFileName = model.PdfSettings.FontFileNameBold;
+            pdfSettings.StationaryFileName = model.PdfSettings.FontFileNameBoldItalic;
 
             //we do not clear cache after each setting update.
             //this behavior can increase performance because cached settings will not be cleared 
@@ -1335,6 +1340,11 @@ namespace Nop.Web.Areas.Admin.Controllers
             _settingService.SaveSettingOverridablePerStore(pdfSettings, x => x.DisablePdfInvoicesForPendingOrders, model.PdfSettings.DisablePdfInvoicesForPendingOrders_OverrideForStore, storeScope, false);
             _settingService.SaveSettingOverridablePerStore(pdfSettings, x => x.InvoiceFooterTextColumn1, model.PdfSettings.InvoiceFooterTextColumn1_OverrideForStore, storeScope, false);
             _settingService.SaveSettingOverridablePerStore(pdfSettings, x => x.InvoiceFooterTextColumn2, model.PdfSettings.InvoiceFooterTextColumn2_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(pdfSettings, x => x.StationaryFileName, model.PdfSettings.StationaryFileName_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(pdfSettings, x => x.FontFileName, model.PdfSettings.FontFileName_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(pdfSettings, x => x.FontFileNameItalic, model.PdfSettings.FontFileNameItalic_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(pdfSettings, x => x.FontFileNameBold, model.PdfSettings.FontFileNameBold_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(pdfSettings, x => x.FontFileNameBoldItalic, model.PdfSettings.FontFileNameBoldItalic_OverrideForStore, storeScope, false);
 
             //now clear settings cache
             _settingService.ClearCache();

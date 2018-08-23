@@ -909,6 +909,57 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="PdfSettings.StationaryFileName_OverrideForStore" asp-input="PdfSettings.StationaryFileName" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="PdfSettings.StationaryFileName" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PdfSettings.StationaryFileName" />
+                                <span asp-validation-for="PdfSettings.StationaryFileName" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="PdfSettings.FontFileName_OverrideForStore" asp-input="PdfSettings.FontFileName" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="PdfSettings.FontFileName" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PdfSettings.FontFileName" />
+                                <span asp-validation-for="PdfSettings.FontFileName" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="PdfSettings.FontFileNameItalic_OverrideForStore" asp-input="PdfSettings.FontFileNameItalic" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="PdfSettings.FontFileNameItalic" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PdfSettings.FontFileNameItalic" />
+                                <span asp-validation-for="PdfSettings.FontFileNameItalic" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="PdfSettings.FontFileNameBold_OverrideForStore" asp-input="PdfSettings.FontFileNameBold" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="PdfSettings.FontFileNameBold" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PdfSettings.FontFileNameBold" />
+                                <span asp-validation-for="PdfSettings.FontFileNameBold" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="PdfSettings.FontFileNameBoldItalic_OverrideForStore" asp-input="PdfSettings.FontFileNameBoldItalic" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="PdfSettings.FontFileNameBoldItalic" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="PdfSettings.FontFileNameBoldItalic" />
+                                <span asp-validation-for="PdfSettings.FontFileNameBoldItalic" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
                                 <nop-override-store-checkbox asp-for="PdfSettings.InvoiceFooterTextColumn1_OverrideForStore" asp-input="PdfSettings.InvoiceFooterTextColumn1" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
                                 <nop-label asp-for="PdfSettings.InvoiceFooterTextColumn1" />
                             </div>

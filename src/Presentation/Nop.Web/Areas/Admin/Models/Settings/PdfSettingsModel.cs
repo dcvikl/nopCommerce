@@ -34,6 +34,31 @@ namespace Nop.Web.Areas.Admin.Models.Settings
         public string InvoiceFooterTextColumn2 { get; set; }
         public bool InvoiceFooterTextColumn2_OverrideForStore { get; set; }
 
+        [NopResourceDisplayName("Admin.Configuration.Settings.GeneralCommon.UseStationaryForPDF")]
+        public string StationaryFileName { get; set; }
+        public bool StationaryFileName_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.GeneralCommon.FontFileName")]
+        [UIHint("Font File")]
+        public string FontFileName { get; set; }
+        public bool FontFileName_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.GeneralCommon.FontFileNameBold")]
+        [UIHint("Font File for bold")]
+        public string FontFileNameBold { get; set; }
+        public bool FontFileNameBold_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.GeneralCommon.FontFileNameItalic")]
+        [UIHint("Font File for italic")]
+        public string FontFileNameItalic { get; set; }
+        public bool FontFileNameItalic_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.GeneralCommon.FontFileNameBoldItalic")]
+        [UIHint("Font File for bold-italic")]
+        public string FontFileNameBoldItalic { get; set; }
+        public bool FontFileNameBoldItalic_OverrideForStore { get; set; }
+
+
         #endregion
     }
 }
