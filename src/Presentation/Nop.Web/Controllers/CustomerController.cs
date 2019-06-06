@@ -633,6 +633,17 @@ namespace Nop.Web.Controllers
                         if (!string.IsNullOrEmpty(model.VatNumber) && _taxSettings.EuVatEmailAdminWhenNewVatSubmitted)
                             _workflowMessageService.SendNewVatSubmittedStoreOwnerNotification(customer, model.VatNumber, vatAddress, _localizationSettings.DefaultAdminLanguageId);
                     }
+                    //OIB number
+                    if (_taxSettings.HrOibEnabled)
+                    {
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.OibNumberAttribute, model.OibNumber);
+
+                        var oibNumberStatus = _taxService.GetOibNumberStatus(model.OibNumber, out string _, out string oibAddress);
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.OibNumberStatusIdAttribute, (int)oibNumberStatus);
+                        //send OIB number admin notification
+                        if (!string.IsNullOrEmpty(model.OibNumber) && _taxSettings.HrOibEmailAdminWhenNewOibSubmitted)
+                            _workflowMessageService.SendNewOibSubmittedStoreOwnerNotification(customer, model.OibNumber, oibAddress, _localizationSettings.DefaultAdminLanguageId);
+                    }
 
                     //form fields
                     if (_customerSettings.GenderEnabled)

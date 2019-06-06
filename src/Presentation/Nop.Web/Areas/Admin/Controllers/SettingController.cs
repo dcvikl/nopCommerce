@@ -498,6 +498,10 @@ namespace Nop.Web.Areas.Admin.Controllers
             _settingService.SaveSettingOverridablePerStore(taxSettings, x => x.EuVatUseWebService, model.EuVatUseWebService_OverrideForStore, storeScope, false);
             _settingService.SaveSettingOverridablePerStore(taxSettings, x => x.EuVatAssumeValid, model.EuVatAssumeValid_OverrideForStore, storeScope, false);
             _settingService.SaveSettingOverridablePerStore(taxSettings, x => x.EuVatEmailAdminWhenNewVatSubmitted, model.EuVatEmailAdminWhenNewVatSubmitted_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(taxSettings, x => x.HrOibEnabled, model.HrOibEnabled_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(taxSettings, x => x.HrOibShopCountryId, model.HrOibShopCountryId_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(taxSettings, x => x.HrOibAssumeValid, model.HrOibAssumeValid_OverrideForStore, storeScope, false);
+            _settingService.SaveSettingOverridablePerStore(taxSettings, x => x.HrOibEmailAdminWhenNewOibSubmitted, model.HrOibEmailAdminWhenNewOibSubmitted_OverrideForStore, storeScope, false);
 
             //now clear settings cache
             _settingService.ClearCache();
@@ -1327,10 +1331,10 @@ namespace Nop.Web.Areas.Admin.Controllers
             pdfSettings.InvoiceFooterTextColumn1 = model.PdfSettings.InvoiceFooterTextColumn1;
             pdfSettings.InvoiceFooterTextColumn2 = model.PdfSettings.InvoiceFooterTextColumn2;
             pdfSettings.StationaryFileName = model.PdfSettings.StationaryFileName;
-            pdfSettings.StationaryFileName = model.PdfSettings.FontFileName;
-            pdfSettings.StationaryFileName = model.PdfSettings.FontFileNameItalic;
-            pdfSettings.StationaryFileName = model.PdfSettings.FontFileNameBold;
-            pdfSettings.StationaryFileName = model.PdfSettings.FontFileNameBoldItalic;
+            pdfSettings.FontFileName = model.PdfSettings.FontFileName;
+            pdfSettings.FontFileNameItalic = model.PdfSettings.FontFileNameItalic;
+            pdfSettings.FontFileNameBold = model.PdfSettings.FontFileNameBold;
+            pdfSettings.FontFileNameBoldItalic = model.PdfSettings.FontFileNameBoldItalic;
 
             //we do not clear cache after each setting update.
             //this behavior can increase performance because cached settings will not be cleared 

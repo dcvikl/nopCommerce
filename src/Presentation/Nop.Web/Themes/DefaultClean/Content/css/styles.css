@@ -224,7 +224,48 @@ label, label + * {
 .flyout-cart {
 	display: none;
 }
+/*********** Global Bootstrap element styles*/
+/* Tabs*/
+section {
+    padding: 60px 0;
+}
 
+#sTabs {
+    padding-bottom: 0;
+}
+
+    section .section-title {
+        text-align: center;
+        color: #007b5e;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+    }
+
+#Tabs {
+    background: #007b5e;
+    color: #eee;
+}
+
+    #Tabs h6.section-title {
+        color: #eee;
+    }
+
+    #Tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        color: #f3f3f3;
+        background-color: transparent;
+        border-color: transparent transparent #f3f3f3;
+        border-bottom: 4px solid !important;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    #Tabs .nav-tabs .nav-link {
+        border: 1px solid transparent;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+        color: #eee;
+        font-size: 20px;
+    }
 
 /*********** GLOBAL FORMS ***********/
 
@@ -2036,6 +2077,23 @@ label, label + * {
 	clear: both;
 	line-height: 24px;
 }
+
+.product-note-box {
+    padding: 6px;
+    background-color: #eaeaea;
+    margin: 20px 0;
+}
+
+.product-note-box-header {
+    font-size: 0.75em;
+    font-weight: bold;
+}
+
+.product-note-box-txt {
+    font-size: 0.75em;
+    text-align: left;
+}
+
 
 .product-collateral {
 	margin: 0 0 75px;
@@ -4905,6 +4963,138 @@ label, label + * {
 	font-size: 14px;
 }
 
+/* TABS */
+.nav {
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.nav-link {
+    display: inline-block;
+}
+
+    .nav-link:focus, .nav-link:hover {
+        text-decoration: none;
+    }
+
+    .nav-link.disabled {
+        color: #818a91;
+    }
+
+        .nav-link.disabled, .nav-link.disabled:focus, .nav-link.disabled:hover {
+            color: #818a91;
+            cursor: not-allowed;
+            background-color: transparent;
+        }
+
+.nav-inline .nav-item {
+    display: inline-block;
+}
+
+    .nav-inline .nav-item + .nav-item,
+    .nav-inline .nav-link + .nav-link {
+        margin-left: 1rem;
+    }
+
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+
+    .nav-tabs::after {
+        display: table;
+        clear: both;
+        content: "";
+    }
+
+    .nav-tabs .nav-item {
+        float: left;
+        margin-bottom: -1px;
+    }
+
+        .nav-tabs .nav-item + .nav-item {
+            margin-left: .2rem;
+        }
+
+    .nav-tabs .nav-link {
+        display: block;
+        padding: .5em 1em;
+        border: 1px solid transparent;
+        border-radius: .25rem .25rem 0 0;
+    }
+
+        .nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+            border-color: #eceeef #eceeef #ddd;
+        }
+
+        .nav-tabs .nav-link.disabled, .nav-tabs .nav-link.disabled:focus, .nav-tabs .nav-link.disabled:hover {
+            color: #818a91;
+            background-color: transparent;
+            border-color: transparent;
+        }
+
+        .nav-tabs .nav-link.active, .nav-tabs .nav-link.active:focus, .nav-tabs .nav-link.active:hover,
+        .nav-tabs .nav-item.open .nav-link,
+        .nav-tabs .nav-item.open .nav-link:focus,
+        .nav-tabs .nav-item.open .nav-link:hover {
+            color: #fff;
+            background-color: #248ece;
+            border-color: #ddd #ddd transparent;
+        }
+
+.nav-pills::after {
+    display: table;
+    clear: both;
+    content: "";
+}
+
+.nav-pills .nav-item {
+    float: left;
+}
+
+    .nav-pills .nav-item + .nav-item {
+        margin-left: .2rem;
+    }
+
+.nav-pills .nav-link {
+    display: block;
+    padding: .5em 1em;
+    border-radius: .25rem;
+}
+
+    .nav-pills .nav-link.active, .nav-pills .nav-link.active:focus, .nav-pills .nav-link.active:hover,
+    .nav-pills .nav-item.open .nav-link,
+    .nav-pills .nav-item.open .nav-link:focus,
+    .nav-pills .nav-item.open .nav-link:hover {
+        color: #fff;
+        cursor: default;
+        background-color: #248ece;
+    }
+
+.nav-stacked .nav-item {
+    display: block;
+    float: none;
+}
+
+    .nav-stacked .nav-item + .nav-item {
+        margin-top: .2rem;
+        margin-left: 0;
+    }
+
+.tab-content > .tab-pane {
+    display: none;
+}
+
+.tab-content > .active {
+    display: block;
+}
+
+.nav-tabs .dropdown-menu {
+    margin-top: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+/* TABS end */
 /* jQuery tabs */
 
 .ui-tabs {

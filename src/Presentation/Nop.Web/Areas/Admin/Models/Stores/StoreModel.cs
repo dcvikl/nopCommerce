@@ -57,7 +57,11 @@ namespace Nop.Web.Areas.Admin.Models.Stores
 
         [NopResourceDisplayName("Admin.Configuration.Stores.Fields.CompanyVat")]
         public string CompanyVat { get; set; }
-        
+
+        [NopResourceDisplayName("Admin.Configuration.Stores.Fields.CompanyOib")]
+        public string CompanyOib { get; set; }
+
+
         public IList<StoreLocalizedModel> Locales { get; set; }
 
         #endregion

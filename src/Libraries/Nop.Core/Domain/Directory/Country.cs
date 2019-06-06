@@ -49,6 +49,11 @@ namespace Nop.Core.Domain.Directory
         public bool SubjectToVat { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether customers in this country must be charged EU VAT
+        /// </summary>
+        public bool SubjectToOib { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the entity is published
         /// </summary>
         public bool Published { get; set; }

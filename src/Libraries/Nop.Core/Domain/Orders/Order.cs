@@ -98,6 +98,12 @@ namespace Nop.Core.Domain.Orders
         public string VatNumber { get; set; }
 
         /// <summary>
+        /// Gets or sets the OIB number (the Croatian Value Added Tax)
+        /// </summary>
+        public string OibNumber { get; set; }
+
+
+        /// <summary>
         /// Gets or sets the order subtotal (include tax)
         /// </summary>
         public decimal OrderSubtotalInclTax { get; set; }

@@ -241,7 +241,57 @@ namespace Nop.Services.Tax
         /// <returns>VAT number status</returns>
         VatNumberStatus DoVatCheck(string twoLetterIsoCode, string vatNumber, 
             out string name, out string address, out Exception exception);
+        #endregion
 
+        #region OIB
+
+        /// <summary>
+        /// Gets OIB Number status
+        /// </summary>
+        /// <param name="fullOibNumber">Two letter ISO code of a country and VAT number (e.g. GB 111 1111 111)</param>
+        /// <returns>VAT Number status</returns>
+        OibNumberStatus GetOibNumberStatus(string fullOibNumber);
+
+        /// <summary>
+        /// Gets OIB Number status
+        /// </summary>
+        /// <param name="fullOibNumber">Two letter ISO code of a country and VAT number (e.g. GB 111 1111 111)</param>
+        /// <param name="name">Name (if received)</param>
+        /// <param name="address">Address (if received)</param>
+        /// <returns>VAT Number status</returns>
+        OibNumberStatus GetOibNumberStatus(string fullOibNumber,
+            out string name, out string address);
+
+        /// <summary>
+        /// Gets OIB Number status
+        /// </summary>
+        /// <param name="twoLetterIsoCode">Two letter ISO code of a country</param>
+        /// <param name="oibNumber">OIB number</param>
+        /// <returns>VAT Number status</returns>
+        OibNumberStatus GetOibNumberStatus(string twoLetterIsoCode, string oibNumber);
+
+        /// <summary>
+        /// Gets OIB Number status
+        /// </summary>
+        /// <param name="twoLetterIsoCode">Two letter ISO code of a country</param>
+        /// <param name="oibNumber">OIB number</param>
+        /// <param name="name">Name (if received)</param>
+        /// <param name="address">Address (if received)</param>
+        /// <returns>OIB Number status</returns>
+        OibNumberStatus GetOibNumberStatus(string twoLetterIsoCode, string oibNumber,
+            out string name, out string address);
+
+        /// <summary>
+        /// Performs a basic check of a OIB number for validity
+        /// </summary>
+        /// <param name="twoLetterIsoCode">Two letter ISO code of a country</param>
+        /// <param name="oibNumber">OIB number</param>
+        /// <param name="name">Company name</param>
+        /// <param name="address">Address</param>
+        /// <param name="exception">Exception</param>
+        /// <returns>VAT number status</returns>
+        OibNumberStatus DoOibCheck(string twoLetterIsoCode, string oibNumber,
+            out string name, out string address);
         #endregion
 
         #region Exempts
@@ -261,6 +311,7 @@ namespace Nop.Services.Tax
         /// <param name="customer">Customer</param>
         /// <returns>Result</returns>
         bool IsVatExempt(Address address, Customer customer);
+        //int GetOibNumberStatus(string oibNumber);
 
         #endregion
     }

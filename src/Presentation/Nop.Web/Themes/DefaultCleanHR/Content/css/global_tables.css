@@ -1,0 +1,109 @@
+﻿/*********** GLOBAL TABLES ***********/
+
+
+
+.table-wrapper {
+	overflow-x: auto;
+}
+.cart th,
+.data-table th,
+.forum-table th {
+	border-width: 1px 1px 0;
+	border-style: solid;
+	border-color: #ddd;
+    background-color: #f6f6f6;
+    padding: 10px;
+    white-space: nowrap;
+	font-weight: normal;
+}
+.cart td,
+.data-table td,
+.forum-table td {
+	min-width: 50px;
+	border-width: 1px;
+	border-style: solid;
+    border-color: transparent #ddd #ddd;
+    background-color: #fff;
+    padding: 20px;
+	color: #444;
+}
+.forum-table td {
+	min-width: 90px;
+}
+.cart a,
+.data-table a,
+.forum-table a {
+	font-weight: normal;
+	color: #00A5EA;
+}
+.cart a:hover,
+.data-table a:hover,
+.forum-table a:hover {
+	text-decoration: underline;
+}
+.cart .product,
+.data-table .product,
+.data-table .message,
+.data-table .info,
+.data-table .name,
+.forum-table .forum-details,
+.forum-table .topic-details {
+	min-width: 225px;
+	text-align: left;
+}
+.cart .product a,
+.data-table .product a,
+.data-table .info a {
+    font-weight: bold;
+	color: #444;
+}
+.cart .product a:hover,
+.data-table .product a:hover,
+.data-table .info a:hover {
+	color: #00A5EA;
+	text-decoration: none;
+}
+
+.cart .product .edit-item {
+	margin: 10px 0 0;
+}
+.cart .product .edit-item a {
+	font-weight: normal;
+	color: #00A5EA;
+}
+.cart .product .edit-item a:hover {
+	text-decoration: underline;
+}
+
+.cart .remove-from-cart,
+.cart .add-to-cart,
+.data-table .select-boxes,
+.data-table .order {
+    text-align: center;
+}
+
+.cart td.unit-price,
+.data-table td.unit-price {
+    white-space: nowrap;
+}
+.cart td.quantity input {
+    width: 50px;
+    text-align: center;
+}
+.cart td.subtotal,
+.data-table td.total {
+	white-space: nowrap;
+    color: #444;
+}
+.cart td.subtotal .discount {
+    font-style: italic;
+    color: #00A5EA;
+}
+
+.data-table em a {
+	font-weight: bold;
+	color: #444;
+}
+.data-table div.download {
+	margin: 10px 0 0;
+}

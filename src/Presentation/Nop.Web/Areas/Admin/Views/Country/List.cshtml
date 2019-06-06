@@ -125,6 +125,13 @@
                                         attributes: { style: "text-align:center" },
                                         template: '# if(SubjectToVat) {# <i class="fa fa-check true-icon"></i> #} else {# <i class="fa fa-close false-icon"></i> #} #'
                                     }, {
+                                        field: "SubjectToOib",
+                                        title: "@T("Admin.Configuration.Countries.Fields.SubjectToOib")",
+                                        width: 100,
+                                        headerAttributes: { style: "text-align:center" },
+                                        attributes: { style: "text-align:center" },
+                                        template: '# if(SubjectToOib) {# <i class="fa fa-check true-icon"></i> #} else {# <i class="fa fa-close false-icon"></i> #} #'
+                                    }, {
                                         field: "NumberOfStates",
                                         title: "@T("Admin.Configuration.Countries.Fields.NumberOfStates")",
                                         width: 150

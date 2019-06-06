@@ -180,6 +180,18 @@
                                 </span>
                             </div>
                         }
+                        @if (Model.DisplayOibNumber)
+                        {
+                            <div class="inputs">
+                                <label asp-for="OibNumber" asp-postfix=":"></label>
+                                <input asp-for="OibNumber" />
+                                <span class="vat-status">@Model.OibNumberStatusNote</span>
+                                <span class="vat-note">
+                                    <em>@T("Account.Fields.OibNumber.Note")</em>
+                                </span>
+                            </div>
+                        }
+
                     </div>
                 </div>
             }

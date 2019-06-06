@@ -195,7 +195,10 @@ namespace Nop.Web.Areas.Admin.Models.Orders
         public AddressModel BillingAddress { get; set; }
         [NopResourceDisplayName("Admin.Orders.Fields.VatNumber")]
         public string VatNumber { get; set; }
-        
+        [NopResourceDisplayName("Admin.Orders.Fields.OibNumber")]
+        public string OibNumber { get; set; }
+
+
         //gift cards
         public IList<GiftCard> GiftCards { get; set; }
 

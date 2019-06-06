@@ -119,7 +119,8 @@ namespace Nop.Services.Tax
 
             //company (business) or consumer?
             var customerVatStatus = (VatNumberStatus)_genericAttributeService.GetAttribute<int>(customer, NopCustomerDefaults.VatNumberStatusIdAttribute);
-            if (customerVatStatus == VatNumberStatus.Valid)
+            var customerOibStatus = (OibNumberStatus)_genericAttributeService.GetAttribute<int>(customer, NopCustomerDefaults.OibNumberStatusIdAttribute);
+            if (customerVatStatus == VatNumberStatus.Valid || customerOibStatus == OibNumberStatus.Valid)
                 return false;
 
             //TODO: use specified company name? (both address and registration one)
@@ -770,6 +771,136 @@ namespace Nop.Services.Tax
                     address = string.Empty;
             }
         }
+        #endregion
+
+        #region OIB
+
+        /// <summary>
+        /// Gets OIB Number status
+        /// </summary>
+        /// <param name="fullOibNumber">Two letter ISO code of a country and VAT number (e.g. GB 111 1111 111)</param>
+        /// <returns>OIB Number status</returns>
+        public virtual OibNumberStatus GetOibNumberStatus(string fullOibNumber)
+        {
+            return GetOibNumberStatus(fullOibNumber, out var _, out var _);
+        }
+
+        /// <summary>
+        /// Gets OIB Number status
+        /// </summary>
+        /// <param name="fullOibNumber">Two letter ISO code of a country and VAT number (e.g. GB 111 1111 111)</param>
+        /// <param name="name">Name (if received)</param>
+        /// <param name="address">Address (if received)</param>
+        /// <returns>OIB Number status</returns>
+        public virtual OibNumberStatus GetOibNumberStatus(string fullOibNumber,
+            out string name, out string address)
+        {
+            name = string.Empty;
+            address = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(fullOibNumber))
+                return OibNumberStatus.Empty;
+            fullOibNumber = fullOibNumber.Trim();
+
+            //GB 111 1111 111 or GB 1111111111
+            //more advanced regex - http://codeigniter.com/wiki/European_Vat_Checker
+            var r = new Regex(@"^(\w{2})(.*)");
+            var match = r.Match(fullOibNumber);
+            if (!match.Success)
+                return OibNumberStatus.Invalid;
+            var twoLetterIsoCode = match.Groups[1].Value;
+            var oibNumber = match.Groups[2].Value;
+
+            return GetOibNumberStatus(twoLetterIsoCode, oibNumber, out name, out address);
+        }
+
+        /// <summary>
+        /// Gets OIB Number status
+        /// </summary>
+        /// <param name="twoLetterIsoCode">Two letter ISO code of a country</param>
+        /// <param name="oibNumber">OIB number</param>
+        /// <returns>OIB Number status</returns>
+        public virtual OibNumberStatus GetOibNumberStatus(string twoLetterIsoCode, string oibNumber)
+        {
+            return GetOibNumberStatus(twoLetterIsoCode, oibNumber, out var _, out var _);
+        }
+
+        /// <summary>
+        /// Gets OIB Number status
+        /// </summary>
+        /// <param name="twoLetterIsoCode">Two letter ISO code of a country</param>
+        /// <param name="oibNumber">VAT number</param>
+        /// <param name="name">Name (if received)</param>
+        /// <param name="address">Address (if received)</param>
+        /// <returns>VAT Number status</returns>
+        public virtual OibNumberStatus GetOibNumberStatus(string twoLetterIsoCode, string oibNumber,
+            out string name, out string address)
+        {
+            name = string.Empty;
+            address = string.Empty;
+
+            //if (string.IsNullOrEmpty(twoLetterIsoCode))
+            //    return OibNumberStatus.Empty;
+
+            if (string.IsNullOrEmpty(oibNumber))
+                return OibNumberStatus.Empty;
+
+            if (_taxSettings.EuVatAssumeValid)
+                return OibNumberStatus.Valid;
+
+            //if (!_taxSettings.EuVatUseWebService)
+            //    return OibNumberStatus.Unknown;
+
+            return DoOibCheck(twoLetterIsoCode, oibNumber, out name, out address);
+        }
+
+        /// <summary>
+        /// Performs a basic check of a VAT number for validity
+        /// </summary>
+        /// <param name="oibNumber">VAT number</param>
+        /// <param name="name">Company name</param>
+        /// <param name="address">Address</param>
+        /// <param name="exception">Exception</param>
+        /// <returns>VAT number status</returns>
+        public virtual OibNumberStatus DoOibCheck(string twoLetterIsoCode, string oibNumber, out string name, out string address)
+        {
+            name = string.Empty;
+            address = string.Empty;
+
+            if (oibNumber.Length != 11)
+            {
+                name = address = string.Empty;
+                return OibNumberStatus.Invalid;
+            }
+
+            if (!long.TryParse(oibNumber, out long b)) return OibNumberStatus.Invalid;
+
+            int a = 10;
+            for (int i = 0; i < 10; i++)
+            {
+                a = a + Convert.ToInt32(oibNumber.Substring(i, 1));
+                a = a % 10;
+                if (a == 0) a = 10;
+                a *= 2;
+                a = a % 11;
+            }
+            int OibNumberCheckDigit = 11 - a;
+            if (OibNumberCheckDigit == 10) OibNumberCheckDigit = 0;
+            else
+            {
+                OibNumberCheckDigit = Convert.ToInt32(oibNumber.Substring(10, 1));
+            }
+            int _originalOibNumberCheckDigit = Convert.ToInt32(oibNumber.Substring(10, 1));
+            if (_originalOibNumberCheckDigit != OibNumberCheckDigit)
+            {
+                return OibNumberStatus.Invalid;
+            }
+            else if (_originalOibNumberCheckDigit == OibNumberCheckDigit)
+            {
+                return OibNumberStatus.Valid;
+            }
+            return OibNumberStatus.Unknown; ;
+        }
 
         #endregion
 
@@ -829,6 +960,26 @@ namespace Nop.Services.Tax
             return address.CountryId != _taxSettings.EuVatShopCountryId &&
                    customerVatStatus == VatNumberStatus.Valid &&
                    _taxSettings.EuVatAllowVatExemption;
+        }
+
+        public virtual bool IsOibExempt(Address address, Customer customer)
+        {
+            if (!_taxSettings.HrOibEnabled)
+                return false;
+
+            if (address?.Country == null || customer == null)
+                return false;
+
+            if (!address.Country.SubjectToOib)
+                // VAT not chargeable if shipping outside OIB zone
+                return false;
+
+            // OIB not chargeable if address, customer and config meet our OIB exemption requirements:
+            // returns true if this customer is OIB exempt because they are shipping within the EU but outside our shop country, they have supplied a validated OIB number, and the shop is configured to allow OIB exemption
+            var customerOibStatus = (OibNumberStatus)_genericAttributeService.GetAttribute<int>(customer, NopCustomerDefaults.OibNumberStatusIdAttribute);
+            return address.CountryId != _taxSettings.HrOibShopCountryId &&
+                   customerOibStatus == OibNumberStatus.Valid &&
+                   _taxSettings.HrOibAllowOibExemption;
         }
 
         #endregion

@@ -250,9 +250,10 @@ namespace Nop.Services.Common
         /// <param name="pdfWriter">PDF writer</param>
         /// <param name="pageSize">Page size</param>
         /// <param name="lang">Language</param>
-        /// <param name="font">Font</param>
-        protected virtual void PrintFooter(PdfSettings pdfSettingsByStore, PdfWriter pdfWriter, Rectangle pageSize, Language lang, Font font)
+        /// <param name="footerFont">Font</param>
+        protected virtual void PrintFooter(PdfSettings pdfSettingsByStore, PdfWriter pdfWriter, Rectangle pageSize, Language lang, Font footerFont)
         {
+            Font _footerFont = new Font(footerFont.BaseFont, 6f);
             if (string.IsNullOrEmpty(pdfSettingsByStore.InvoiceFooterTextColumn1) && string.IsNullOrEmpty(pdfSettingsByStore.InvoiceFooterTextColumn2))
                 return;
 
@@ -271,21 +272,35 @@ namespace Nop.Services.Common
                 return;
 
             var totalLines = Math.Max(column1Lines.Count, column2Lines.Count);
-            const float margin = 43;
+            var leftMargin = Utilities.MillimetersToPoints(12f);
+            var rightMargin = Utilities.MillimetersToPoints(38f);
+            var bottomMargin = Utilities.MillimetersToPoints(42f);
+            const float margin = 120;
 
             //if you have really a lot of lines in the footer, then replace 9 with 10 or 11
             var footerHeight = totalLines * 9;
             var directContent = pdfWriter.DirectContent;
-            directContent.MoveTo(pageSize.GetLeft(margin), pageSize.GetBottom(margin) + footerHeight);
-            directContent.LineTo(pageSize.GetRight(margin), pageSize.GetBottom(margin) + footerHeight);
+            directContent.MoveTo(pageSize.GetLeft(leftMargin), pageSize.GetBottom(bottomMargin) - footerHeight);
+            directContent.LineTo(pageSize.GetRight(rightMargin), pageSize.GetBottom(bottomMargin) - footerHeight);
+            directContent.SetLineWidth(.5f);
             directContent.Stroke();
 
-            var footerTable = new PdfPTable(2)
+            var footerTable = new PdfPTable(1)
             {
                 WidthPercentage = 100f,
                 RunDirection = GetDirection(lang)
             };
-            footerTable.SetTotalWidth(new float[] { 250, 250 });
+            footerTable.SetTotalWidth(new float[] { Utilities.MillimetersToPoints(160f) });
+
+            if (column1Lines.Any() && column2Lines.Any())
+            {
+                footerTable = new PdfPTable(2)
+                {
+                    WidthPercentage = 100f,
+                    RunDirection = GetDirection(lang)
+                };
+                footerTable.SetTotalWidth(new float[] { 250, 250 });
+            }
 
             //column 1
             if (column1Lines.Any())
@@ -298,7 +313,7 @@ namespace Nop.Services.Common
 
                 foreach (var footerLine in column1Lines)
                 {
-                    column1.Phrase.Add(new Phrase(footerLine, font));
+                    column1.Phrase.Add(new Phrase(footerLine, _footerFont));
                     column1.Phrase.Add(new Phrase(Environment.NewLine));
                 }
 
@@ -321,7 +336,7 @@ namespace Nop.Services.Common
 
                 foreach (var footerLine in column2Lines)
                 {
-                    column2.Phrase.Add(new Phrase(footerLine, font));
+                    column2.Phrase.Add(new Phrase(footerLine, _footerFont));
                     column2.Phrase.Add(new Phrase(Environment.NewLine));
                 }
 
@@ -333,7 +348,7 @@ namespace Nop.Services.Common
                 footerTable.AddCell(column);
             }
 
-            footerTable.WriteSelectedRows(0, totalLines, pageSize.GetLeft(margin), pageSize.GetBottom(margin) + footerHeight, directContent);
+            footerTable.WriteSelectedRows(0, totalLines, pageSize.GetLeft(leftMargin), pageSize.GetBottom(bottomMargin) + footerHeight, directContent);
         }
 
         /// <summary>
@@ -735,31 +750,15 @@ namespace Nop.Services.Common
                 //{ 5, new[] { 45, 15, 15, 10, 15 } },
                 //{ 6, new[] { 40, 13, 13, 12, 10, 12 } }
                 { 4, new[] { 50, 20, 10, 20 } },
-                { 5, new[] { 15, 45, 10, 15, 20 } },
-                { 6, new[] { 40, 13, 13, 12, 10, 12 } }
+                { 5, new[] { 15, 45, 10, 15, 15 } },
+                { 6, new[] { 16, 10, 40, 10, 12, 12 } }
             };
 
             productsTable.SetWidths(lang.Rtl ? widths[count].Reverse().ToArray() : widths[count]);
 
             // Define empty PdfCell
             var cellProductItem = GetPdfCell(null, lang, font);
-            //SKU
-            if (_catalogSettings.ShowSkuOnProductDetailsPage)
-            {
-                cellProductItem = GetPdfCell("PDFInvoice.SKU", lang, font);
-                cellProductItem.BackgroundColor = BaseColor.LightGray;
-                cellProductItem.HorizontalAlignment = Element.ALIGN_CENTER;
-                cellProductItem.VerticalAlignment = Element.ALIGN_MIDDLE;
-                productsTable.AddCell(cellProductItem);
-            }
-
-            //product name
-            cellProductItem = GetPdfCell("PDFInvoice.ProductName", lang, font);
-            cellProductItem.BackgroundColor = BaseColor.LightGray;
-            cellProductItem.HorizontalAlignment = Element.ALIGN_LEFT;
-            cellProductItem.VerticalAlignment = Element.ALIGN_MIDDLE;
-            productsTable.AddCell(cellProductItem);
-
+ 
             //Vendor name
             if (_vendorSettings.ShowVendorOnOrderDetailsPage)
             {
@@ -770,6 +769,23 @@ namespace Nop.Services.Common
                 productsTable.AddCell(cellProductItem);
             }
 
+            //SKU
+            if (_catalogSettings.ShowSkuOnProductDetailsPage)
+            {
+                cellProductItem = GetPdfCell("PDFInvoice.SKU", lang, font);
+                cellProductItem.BackgroundColor = BaseColor.LightGray;
+                cellProductItem.HorizontalAlignment = Element.ALIGN_CENTER;
+                cellProductItem.VerticalAlignment = Element.ALIGN_MIDDLE;
+                productsTable.AddCell(cellProductItem);
+            }
+            
+            //product name
+            cellProductItem = GetPdfCell("PDFInvoice.ProductName", lang, font);
+            cellProductItem.BackgroundColor = BaseColor.LightGray;
+            cellProductItem.HorizontalAlignment = Element.ALIGN_LEFT;
+            cellProductItem.VerticalAlignment = Element.ALIGN_MIDDLE;
+            productsTable.AddCell(cellProductItem);
+           
             //qty
             cellProductItem = GetPdfCell("PDFInvoice.ProductQuantity", lang, font);
             cellProductItem.BackgroundColor = BaseColor.LightGray;
@@ -777,12 +793,14 @@ namespace Nop.Services.Common
             cellProductItem.VerticalAlignment = Element.ALIGN_MIDDLE;
             productsTable.AddCell(cellProductItem);
             
-            //price
+
+             //price
             cellProductItem = GetPdfCell("PDFInvoice.ProductPrice", lang, font);
             cellProductItem.BackgroundColor = BaseColor.LightGray;
             cellProductItem.HorizontalAlignment = Element.ALIGN_RIGHT;
             cellProductItem.VerticalAlignment = Element.ALIGN_MIDDLE;
             productsTable.AddCell(cellProductItem);
+  
 
             //total
             cellProductItem = GetPdfCell("PDFInvoice.ProductTotal", lang, font);
@@ -806,6 +824,14 @@ namespace Nop.Services.Common
                 pAttribTable.DefaultCell.HorizontalAlignment = Element.ALIGN_LEFT;
                 pAttribTable.DefaultCell.VerticalAlignment = Element.ALIGN_TOP;
 
+                //Vendor name
+                if (_vendorSettings.ShowVendorOnOrderDetailsPage)
+                {
+                    var vendorName = vendors.FirstOrDefault(v => v.Id == p.VendorId)?.Name ?? string.Empty;
+                    cellProductItem = GetPdfCell(vendorName, font);
+                    cellProductItem.HorizontalAlignment = Element.ALIGN_CENTER;
+                    productsTable.AddCell(cellProductItem);
+                }
                 //SKU
                 if (_catalogSettings.ShowSkuOnProductDetailsPage)
                 {
@@ -814,11 +840,12 @@ namespace Nop.Services.Common
                     cellProductItem.HorizontalAlignment = Element.ALIGN_CENTER;
                     productsTable.AddCell(cellProductItem);
                 }
-
+ 
                 //product name
                 var name = _localizationService.GetLocalized(p, x => x.Name, lang.Id);
                 pAttribTable.AddCell(new Paragraph(name, font));
                 cellProductItem.AddElement(new Paragraph(name, font));
+ 
                 //attributes
                 if (!string.IsNullOrEmpty(orderItem.AttributeDescription))
                 {
@@ -845,23 +872,15 @@ namespace Nop.Services.Common
                 }
 
                 productsTable.AddCell(pAttribTable);
-
-
-                //Vendor name
-                if (_vendorSettings.ShowVendorOnOrderDetailsPage)
-                {
-                    var vendorName = vendors.FirstOrDefault(v => v.Id == p.VendorId)?.Name ?? string.Empty;
-                    cellProductItem = GetPdfCell(vendorName, font);
-                    cellProductItem.HorizontalAlignment = Element.ALIGN_CENTER;
-                    productsTable.AddCell(cellProductItem);
-                }
-
+   
                 //qty
                 cellProductItem = GetPdfCell(orderItem.Quantity, font);
                 cellProductItem.HorizontalAlignment = Element.ALIGN_RIGHT;
                 productsTable.AddCell(cellProductItem);
 
-                //price
+
+
+                 //price
                 string unitPrice;
                 if (order.CustomerTaxDisplayType == TaxDisplayType.IncludingTax)
                 {
@@ -883,6 +902,7 @@ namespace Nop.Services.Common
                 cellProductItem = GetPdfCell(unitPrice, font);
                 cellProductItem.HorizontalAlignment = Element.ALIGN_RIGHT;
                 productsTable.AddCell(cellProductItem);
+  
 
                 //total
                 string subTotal;
@@ -1071,8 +1091,8 @@ namespace Nop.Services.Common
                 _addressSettings.CountyEnabled || _addressSettings.ZipPostalCodeEnabled)
             {
                 var addressLine = $"{indent}{order.BillingAddress.ZipPostalCode} {order.BillingAddress.City}, "
-                    + $"{(!string.IsNullOrEmpty(order.BillingAddress.County) ? $"{order.BillingAddress.County}, " : string.Empty)}"
-                    + $"{(order.BillingAddress.StateProvince != null ? _localizationService.GetLocalized(order.BillingAddress.StateProvince, x => x.Name, lang.Id) : string.Empty)} "; 
+                    + $"{(!string.IsNullOrEmpty(order.BillingAddress.County) ? $"{order.BillingAddress.County}, " : string.Empty)}";
+                    //+ $"{(order.BillingAddress.StateProvince != null ? _localizationService.GetLocalized(order.BillingAddress.StateProvince, x => x.Name, lang.Id) : string.Empty)} "; 
                     //+ $"{order.BillingAddress.ZipPostalCode} ";
                 billingAddress.AddCell(new Paragraph(addressLine, font));
             }
@@ -1081,9 +1101,15 @@ namespace Nop.Services.Common
                 billingAddress.AddCell(new Paragraph(indent + _localizationService.GetLocalized(order.BillingAddress.Country, x => x.Name, lang.Id),
                     font));
 
+            //OIB number
+            if (!string.IsNullOrEmpty(order.OibNumber))
+                billingAddress.AddCell(GetParagraph("PDFInvoice.OIBNumber", indent, lang, font, order.OibNumber));
+  
             //VAT number
             if (!string.IsNullOrEmpty(order.VatNumber))
                 billingAddress.AddCell(GetParagraph("PDFInvoice.VATNumber", indent, lang, font, order.VatNumber));
+
+
 
             //custom attributes
             var customBillingAddressAttributes =
@@ -1251,7 +1277,7 @@ namespace Nop.Services.Common
 
 
 
-            var doc = new Document(pageSize, 54, 54, 142, 54);
+            var doc = new Document(pageSize, 54, 54, 142, Utilities.MillimetersToPoints(37f));
             var pdfWriter = PdfWriter.GetInstance(doc, stream);
             doc.Open();
 
@@ -1264,6 +1290,9 @@ namespace Nop.Services.Common
             font.Color = BaseColor.Black;
             var attributesFont = GetFont("italic");
             //attributesFont.SetStyle(Font.ITALIC);
+            var footerFont = GetFont("regular");
+            footerFont.Color = BaseColor.Gray;
+            footerFont.Size = 6;
 
             var ordCount = orders.Count;
             var ordNum = 0;

@@ -1,0 +1,203 @@
+/* Mixin */
+/*  SECTIONS  ============================================================================= */
+.blog-page .section {
+  clear: both;
+  padding: 0px;
+  margin: 0px; }
+
+/*  GROUPING  ============================================================================= */
+.blog-page .group:before,
+.blog-page .group:after {
+  content: "";
+  display: table; }
+
+.blog-page .group:after {
+  clear: both; }
+
+.blog-page .group {
+  zoom: 1
+  /* For IE 6/7 (trigger hasLayout) */ }
+
+/*  GRID COLUMN SETUP   ==================================================================== */
+.blog-page .col {
+  display: block;
+  float: left
+  /*margin: 1% 0 1% 1.6%;
+  padding: 0 1.6% 0 1.6%;*/ }
+
+.blog-page .col:first-child {
+  margin-left: 0; }
+
+/* all browsers except IE6 and lower */
+/*  REMOVE MARGINS AS ALL GO FULL WIDTH AT 480 PIXELS */
+@media only screen and (max-width: 480px) {
+  .blog-page .col {
+    margin: 1% 0 1% 0%; } }
+/*  GRID OF TWO   ============================================================================= */
+.blog-page .span_2_of_2 {
+  width: 100%; }
+
+.blog-page .span_1_of_2 {
+  width: 49.2%; }
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+@media only screen and (max-width: 480px) {
+  .blog-page .span_2_of_2 {
+    width: 100%; }
+
+  .blog-page .span_1_of_2 {
+    width: 100%; } }
+/*  GRID OF THREE   ============================================================================= */
+.blog-page .span_3_of_3 {
+  width: 100%; }
+
+.blog-page .span_2_of_3 {
+  width: calc(100% / 3 * 2); }
+
+.blog-page .span_1_of_3 {
+  /*width: calc(100% / 3);*/
+  width: 32.26%;
+  margin-left: 1.6%; }
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+@media only screen and (max-width: 480px) {
+  .blog-page .span_3_of_3 {
+    width: 100%; }
+
+  .blog-page .span_2_of_3 {
+    width: 100%; }
+
+  .blog-page .span_1_of_3 {
+    width: 100%; } }
+/*  GRID OF EIGHT   ============================================================================= */
+.blog-page .span_8_of_8 {
+  width: 100%; }
+
+.blog-page .span_7_of_8 {
+  width: 87.5%; }
+
+.blog-page .span_6_of_8 {
+  width: 75.0%; }
+
+.blog-page .span_5_of_8 {
+  width: 62.5%; }
+
+.blog-page .span_4_of_8 {
+  width: 50.0%; }
+
+.blog-page .span_3_of_8 {
+  width: 37.5%; }
+
+.blog-page .span_2_of_8 {
+  width: 25.0%; }
+
+.blog-page .span_1_of_8 {
+  width: 12.5%; }
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+@media only screen and (max-width: 480px) {
+  .blog-page .span_8_of_8 {
+    width: 100%; }
+
+  .blog-page .span_7_of_8 {
+    width: 100%; }
+
+  .blog-page .span_6_of_8 {
+    width: 100%; }
+
+  .blog-page .span_5_of_8 {
+    width: 100%; }
+
+  .blog-page .span_4_of_8 {
+    width: 100%; }
+
+  .blog-page .span_3_of_8 {
+    width: 100%; }
+
+  .blog-page .span_2_of_8 {
+    width: 100%; }
+
+  .blog-page .span_1_of_8 {
+    width: 100%; } }
+.blog-page .post-body {
+  padding: 0; }
+
+#TuTContent {
+  text-align: left; }
+  #TuTContent .dark-bg {
+    background-color: #666; }
+  #TuTContent .light-bg {
+    background-color: #bbb; }
+  #TuTContent .white-bg {
+    background-color: #fff; }
+  #TuTContent .content {
+    position: relative; }
+  #TuTContent .content, #TuTContent .slides {
+    padding: 10px; }
+  #TuTContent .slides .slide {
+    background-color: #fff; }
+  #TuTContent .slide-wrap {
+    position: relative; }
+  #TuTContent .slide-head {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 5px;
+    background-color: #666;
+    color: #fff;
+    font-weight: 700;
+    z-index: 2; }
+  #TuTContent .slide-image img {
+    position: relative;
+    overflow: hidden;
+    bottom: 0;
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1);
+    z-index: 1; }
+  #TuTContent .slide-number {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    padding: 3%;
+    background-color: #666;
+    color: #fff;
+    font-weight: 700;
+    min-width: 32px;
+    text-align: center;
+    z-index: 2; }
+  #TuTContent h3, #TuTContent .title {
+    color: #fff; }
+  #TuTContent .title {
+    text-align: center;
+    margin: 0; }
+  #TuTContent img, #TuTContent img.ico {
+    max-width: 100%;
+    height: auto;
+    display: -webkit-box; }
+  #TuTContent img.ico {
+    float: left;
+    padding-right: 5px; }
+  #TuTContent dl {
+    text-align: left; }
+  #TuTContent dt {
+    color: #000;
+    font-weight: 600; }
+  @media only screen and (min-width: 481px) {
+    #TuTContent .vertical-align > * {
+      position: relative;
+      top: 50%;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%); }
+    #TuTContent img.ico {
+      float: left;
+      padding-right: 5px; }
+    #TuTContent .span_1_of_3 {
+      margin-left: 1.6%; }
+    #TuTContent .col:first-child {
+      margin-left: 0; } }
+  @media only screen and (max-width: 480px) {
+    #TuTContent .col {
+      margin-left: 0; } }

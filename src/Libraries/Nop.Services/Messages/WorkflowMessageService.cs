@@ -1936,6 +1936,51 @@ namespace Nop.Services.Messages
         }
 
         /// <summary>
+        /// Sends a "new OIB submitted" notification to a store owner
+        /// </summary>
+        /// <param name="customer">Customer</param>
+        /// <param name="oibName">Received VAT name</param>
+        /// <param name="oibAddress">Received VAT address</param>
+        /// <param name="languageId">Message language identifier</param>
+        /// <returns>Queued email identifier</returns>
+        public virtual IList<int> SendNewOibSubmittedStoreOwnerNotification(Customer customer,
+            string oibName, string oibAddress, int languageId)
+        {
+            if (customer == null)
+                throw new ArgumentNullException(nameof(customer));
+
+            var store = _storeContext.CurrentStore;
+            languageId = EnsureLanguageIsActive(languageId, store.Id);
+
+            var messageTemplates = GetActiveMessageTemplates(MessageTemplateSystemNames.NewOibSubmittedStoreOwnerNotification, store.Id);
+            if (!messageTemplates.Any())
+                return new List<int>();
+
+            //tokens
+            var commonTokens = new List<Token>();
+            _messageTokenProvider.AddCustomerTokens(commonTokens, customer);
+            commonTokens.Add(new Token("OibValidationResult.Name", oibName));
+            commonTokens.Add(new Token("OibValidationResult.Address", oibAddress));
+
+            return messageTemplates.Select(messageTemplate =>
+            {
+                //email account
+                var emailAccount = GetEmailAccountOfMessageTemplate(messageTemplate, languageId);
+
+                var tokens = new List<Token>(commonTokens);
+                _messageTokenProvider.AddStoreTokens(tokens, store, emailAccount);
+
+                _eventPublisher.MessageTokensAdded(messageTemplate, tokens);
+
+                var toEmail = emailAccount.Email;
+                var toName = emailAccount.DisplayName;
+
+                return SendNotification(messageTemplate, emailAccount, languageId, tokens, toEmail, toName);
+            }).ToList();
+        }
+
+
+        /// <summary>
         /// Sends a blog comment notification message to a store owner
         /// </summary>
         /// <param name="blogComment">Blog comment</param>

@@ -142,6 +142,12 @@ namespace Nop.Web.Models.Customer
         public string VatNumberStatusNote { get; set; }
         public bool DisplayVatNumber { get; set; }
 
+        //HR OIB 
+        [NopResourceDisplayName("Account.Fields.OibNumber")]
+        public string OibNumber { get; set; }
+        public string OibNumberStatusNote { get; set; }
+        public bool DisplayOibNumber { get; set; }
+
         //external authentication
         [NopResourceDisplayName("Account.AssociatedExternalAuth")]
         public IList<AssociatedExternalAuthModel> AssociatedExternalAuthRecords { get; set; }

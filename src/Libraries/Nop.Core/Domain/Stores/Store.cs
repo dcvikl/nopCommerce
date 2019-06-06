@@ -56,5 +56,10 @@ namespace Nop.Core.Domain.Stores
         /// Gets or sets the company VAT (used in Europe Union countries)
         /// </summary>
         public string CompanyVat { get; set; }
+
+        /// <summary>
+        /// Gets or sets the company OIB (used Croatia)
+        /// </summary>
+        public string CompanyOib { get; set; }
     }
 }

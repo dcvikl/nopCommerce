@@ -406,6 +406,17 @@ namespace Nop.Services.Messages
         IList<int> SendNewVatSubmittedStoreOwnerNotification(Customer customer, string vatName, string vatAddress, int languageId);
 
         /// <summary>
+        /// Sends a "new OIB submitted" notification to a store owner
+        /// </summary>
+        /// <param name="customer">Customer</param>
+        /// <param name="oibName">Received VAT name</param>
+        /// <param name="oibAddress">Received VAT address</param>
+        /// <param name="languageId">Message language identifier</param>
+        /// <returns>Queued email identifier</returns>
+        IList<int> SendNewOibSubmittedStoreOwnerNotification(Customer customer, string oibName, string oibAddress, int languageId);
+
+
+        /// <summary>
         /// Sends a blog comment notification message to a store owner
         /// </summary>
         /// <param name="blogComment">Blog comment</param>

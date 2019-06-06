@@ -108,14 +108,30 @@ namespace Nop.Core.Domain.Tax
         public bool EuVatEnabled { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether HR OIB (Croatian Bussiness Number) is enabled
+        /// </summary>
+        public bool HrOibEnabled { get; set; }
+
+        /// <summary>
         /// Gets or sets a shop country identifier
         /// </summary>
         public int EuVatShopCountryId { get; set; }
 
         /// <summary>
+        /// Gets or sets a shop country identifier
+        /// </summary>
+        public int HrOibShopCountryId { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this store will exempt eligible VAT-registered customers from VAT
         /// </summary>
         public bool EuVatAllowVatExemption { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this store will exempt eligible Oib-registered customers from OIB
+        /// </summary>
+        public bool HrOibAllowOibExemption { get; set; }
+
 
         /// <summary>
         /// Gets or sets a value indicating whether we should use the EU web service to validate VAT numbers
@@ -132,6 +148,15 @@ namespace Nop.Core.Domain.Tax
         /// </summary>
         public bool EuVatEmailAdminWhenNewVatSubmitted { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether OIB numbers should be automatically assumed valid
+        /// </summary>
+        public bool HrOibAssumeValid { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether we should notify a store owner when a new OIB number is submitted
+        /// </summary>
+        public bool HrOibEmailAdminWhenNewOibSubmitted { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether to log tax providers errors
         /// </summary>

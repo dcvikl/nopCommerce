@@ -1,0 +1,100 @@
+﻿@model List<Nop.Plugin.Misc.HomePageProduct.Models.CategoryHomePageModel>
+@using Nop.Web.Framework.UI
+@{
+    Layout = "";
+    @* Adding scripts and css to Head section *@
+	Html.AddScriptParts(ResourceLocation.Head,"~/Plugins/Misc.HomePageProduct/Content/js/PublicPage.js");
+	Html.AddScriptParts(ResourceLocation.Head,"~/Plugins/Misc.HomePageProduct/Content/bootstrap-3.2.0/js/bootstrap.js");
+    Html.AddCssFileParts(ResourceLocation.Head,"~/Plugins/Misc.HomePageProduct/Content/bootstrap-3.2.0/css/bootstrap.css");
+    Html.AddCssFileParts(ResourceLocation.Head,"~/Plugins/Misc.HomePageProduct/Content/bootstrap-3.2.0/css/bootstrap.css");
+}
+
+@foreach (var item in Model)
+{
+    <!--Category Panel-->
+    <div class="row rowofpublicpage" style="border-top: 2px solid @item.CategoryColor;">
+        <div class="col-xs-12 col-sm-2 divTitle">
+            <div class="title">
+                <h4 style="background-color: @item.CategoryColor;" class="categorynameheader">
+                    <a href="@Url.RouteUrl("Category", new { SeName = item.MainCategorySeName })" class="maincategory">
+                        @item.MainCategoryName
+                    </a>
+                </h4>
+            </div>
+            <ul>
+                @foreach (var subCategory in item.Categories)
+                {
+                    <li style="border-bottom: 1px solid @item.CategoryColor;">
+                        <a href="@Url.RouteUrl("Category", new { SeName = subCategory.SeName })" class="subcategoryli">
+                            @subCategory.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="hidden-xs col-sm-3 divCarousel">
+            <div id="carousel-example-generic-homepage-product" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <!-- Wrapper for slides -->
+                @*img-responsive imgheightofcategory*@
+                <div class="carousel-inner">
+                    @{
+                         var ci = 0;
+                    }
+                    @foreach (var catpic in item.PictureModel)
+                        {
+                            if (ci == 0)
+                            {
+                        <div class="item active">
+                            <img alt="@catpic.AlternateText" src="@catpic.ImageUrl"
+                                 title="@catpic.Title" class="imgheightofcategory" />
+                        </div>
+                            }
+                            else
+                            {
+                        <div class="item">
+                            <img alt="@catpic.AlternateText" src="@catpic.ImageUrl"
+                                 title="@catpic.Title" class="imgheightofcategory" />
+                        </div>
+                            }
+                            ci++;
+                        }
+
+                </div>
+            </div>
+
+            @*<div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                        </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        @foreach (var catpic in item.PictureModel)
+                        {
+                            <div class="item">
+                                <img alt="@catpic.AlternateText" src="@catpic.ImageUrl"
+                                     title="@catpic.Title" />
+                            </div>
+                        }
+                    </div>
+                </div>*@
+        </div>
+        <div class="col-xs-12 col-sm-7">
+            <div class="row productContainer">
+                @if (item.Products.Count > 0)
+                    {
+                        foreach (var product in item.Products)
+                        {
+                    <div class="col-xs-6 col-sm-4 rowBorder">
+                        @Html.Partial("~/Plugins/Misc.HomePageProduct/Views/MiscHomePageProduct/ProductBox.cshtml", product)
+                    </div>
+                        }
+                    }
+            </div>
+        </div>
+    </div>
+}

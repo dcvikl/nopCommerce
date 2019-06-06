@@ -338,6 +338,11 @@ namespace Nop.Services.Orders
             public string VatNumber { get; set; }
 
             /// <summary>
+            /// OIB number
+            /// </summary>
+            public string OibNumber { get; set; }
+
+            /// <summary>
             /// Tax rates
             /// </summary>
             public string TaxRates { get; set; }
@@ -570,6 +575,11 @@ namespace Nop.Services.Orders
             var customerVatStatus = (VatNumberStatus)_genericAttributeService.GetAttribute<int>(details.Customer, NopCustomerDefaults.VatNumberStatusIdAttribute);
             if (_taxSettings.EuVatEnabled && customerVatStatus == VatNumberStatus.Valid)
                 details.VatNumber = _genericAttributeService.GetAttribute<string>(details.Customer, NopCustomerDefaults.VatNumberAttribute);
+
+            //OIB number
+            var customerOibStatus = (OibNumberStatus)_genericAttributeService.GetAttribute<int>(details.Customer, NopCustomerDefaults.OibNumberStatusIdAttribute);
+            if (details.Customer.BillingAddress.Country.TwoLetterIsoCode.ToString() == "HR" && customerOibStatus == OibNumberStatus.Valid)
+                details.OibNumber = _genericAttributeService.GetAttribute<string>(details.Customer, NopCustomerDefaults.OibNumberAttribute);
 
             //tax rates
             details.TaxRates = taxRatesDictionary.Aggregate(string.Empty, (current, next) =>

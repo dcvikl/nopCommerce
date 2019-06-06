@@ -1030,6 +1030,7 @@ namespace Nop.Web.Areas.Admin.Factories
                     CustomerId = order.CustomerId,
                     CustomerIp = order.CustomerIp,
                     VatNumber = order.VatNumber,
+                    OibNumber = order.OibNumber,
                     CheckoutAttributeInfo = order.CheckoutAttributeDescription
                 };
 

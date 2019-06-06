@@ -179,6 +179,14 @@ namespace Nop.Web.Areas.Admin.Models.Customers
 
         public bool DisplayVatNumber { get; set; }
 
+        //HR OIB
+        [NopResourceDisplayName("Admin.Customers.Customers.Fields.OibNumber")]
+        public string OibNumber { get; set; }
+
+        public string OibNumberStatusNote { get; set; }
+
+        public bool DisplayOibNumber { get; set; }
+
         //registration date
         [NopResourceDisplayName("Admin.Customers.Customers.Fields.CreatedOn")]
         public DateTime CreatedOn { get; set; }

@@ -382,6 +382,72 @@
                             }
                         </script>
                     </div>
+                    <div class="panel-heading">
+                        @T("Admin.Configuration.Settings.Tax.BlockTitle.OIB")
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="HrOibEnabled_OverrideForStore" asp-input="HrOibEnabled" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="HrOibEnabled" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="HrOibEnabled" />
+                                <span asp-validation-for="HrOibEnabled"></span>
+                            </div>
+                        </div>
+                        <nop-nested-setting asp-for="HrOibEnabled">
+                            <div class="form-group" id="pnlHrOibShopCountry">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="HrOibShopCountryId_OverrideForStore" asp-input="HrOibShopCountryId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="HrOibShopCountryId" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-select asp-for="HrOibShopCountryId" asp-items="Model.HrOibShopCountries" />
+                                    <span asp-validation-for="HrOibShopCountryId"></span>
+                                </div>
+                            </div>
+                            <div class="form-group" id="pnlHrOibAssumeValid">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="HrOibAssumeValid_OverrideForStore" asp-input="HrOibAssumeValid" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="HrOibAssumeValid" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="HrOibAssumeValid" />
+                                    <span asp-validation-for="HrOibAssumeValid"></span>
+                                </div>
+                            </div>
+                            <div class="form-group" id="pnlHrOibEmailAdminWhenNewOibSubmitted">
+                                <div class="col-md-3">
+                                    <nop-override-store-checkbox asp-for="HrOibEmailAdminWhenNewOibSubmitted_OverrideForStore" asp-input="HrOibEmailAdminWhenNewOibSubmitted" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                    <nop-label asp-for="HrOibEmailAdminWhenNewOibSubmitted" />
+                                </div>
+                                <div class="col-md-9">
+                                    <nop-editor asp-for="HrOibEmailAdminWhenNewOibSubmitted" />
+                                    <span asp-validation-for="HrOibEmailAdminWhenNewOibSubmitted"></span>
+                                </div>
+                            </div>
+                        </nop-nested-setting>
+                        <script>
+                            $(document).ready(function () {
+                                $("#@Html.IdFor(model => model.HrOibEnabled)").click(toggleHROIB);
+
+                                toggleHROIB();
+                            });
+                            function toggleHROIB() {
+                                if ($('#@Html.IdFor(model => model.HrOibEnabled)').is(':checked')) {
+                                    $('#pnlHrOibShopCountry').show();
+                                    $('#pnlHrOibAssumeValid').show();
+                                    $('#pnlHrOibEmailAdminWhenNewOibSubmitted').show();
+                                } else {
+                                    $('#pnlHrOibShopCountry').hide();
+                                    $('#pnlHrOibAssumeValid').hide();
+                                    $('#pnlHrOibEmailAdminWhenNewOibSubmitted').hide();
+                                }
+                            }
+                        </script>
+                    </div>
+
                 </div>
                 @await Component.InvokeAsync("AdminWidget", new { widgetZone = AdminWidgetZones.TaxSettingsBottom })
             </div>

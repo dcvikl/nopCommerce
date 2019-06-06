@@ -150,6 +150,12 @@ namespace Nop.Web.Models.Customer
         public string VatNumber { get; set; }
         public bool DisplayVatNumber { get; set; }
 
+        //HR OIB
+        [NopResourceDisplayName("Account.Fields.OibNumber")]
+        public string OibNumber { get; set; }
+        public bool DisplayOibNumber { get; set; }
+
+
         public bool HoneypotEnabled { get; set; }
         public bool DisplayCaptcha { get; set; }
 

@@ -46,6 +46,7 @@ namespace Nop.Web.Models.Order
         public AddressModel BillingAddress { get; set; }
 
         public string VatNumber { get; set; }
+        public string OibNumber { get; set; }
 
         public string PaymentMethod { get; set; }
         public string PaymentMethodStatus { get; set; }

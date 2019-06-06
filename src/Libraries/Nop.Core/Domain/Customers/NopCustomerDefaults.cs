@@ -271,6 +271,16 @@ namespace Nop.Core.Domain.Customers
         /// </summary>
         public static string EuCookieLawAcceptedAttribute => "EuCookieLaw.Accepted";
 
+        /// <summary>
+        /// Gets a name of generic attribute to store the value of 'OibNumber'
+        /// </summary>
+        public static string OibNumberAttribute => "OibNumber";
+
+        /// <summary>
+        /// Gets a name of generic attribute to store the value of 'OibNumberStatusId'
+        /// </summary>
+        public static string OibNumberStatusIdAttribute => "OibNumberStatusId";
+
         #endregion
     }
 }

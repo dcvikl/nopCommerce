@@ -897,6 +897,11 @@ namespace Nop.Web.Areas.Admin.Factories
                 model.EuVatUseWebService_OverrideForStore = _settingService.SettingExists(taxSettings, x => x.EuVatUseWebService, storeId);
                 model.EuVatAssumeValid_OverrideForStore = _settingService.SettingExists(taxSettings, x => x.EuVatAssumeValid, storeId);
                 model.EuVatEmailAdminWhenNewVatSubmitted_OverrideForStore = _settingService.SettingExists(taxSettings, x => x.EuVatEmailAdminWhenNewVatSubmitted, storeId);
+                //
+                model.HrOibEnabled_OverrideForStore = _settingService.SettingExists(taxSettings, x => x.HrOibEnabled, storeId);
+                model.HrOibShopCountryId_OverrideForStore = _settingService.SettingExists(taxSettings, x => x.HrOibShopCountryId, storeId);
+                model.HrOibAssumeValid_OverrideForStore = _settingService.SettingExists(taxSettings, x => x.HrOibAssumeValid, storeId);
+                model.HrOibEmailAdminWhenNewOibSubmitted_OverrideForStore = _settingService.SettingExists(taxSettings, x => x.HrOibEmailAdminWhenNewOibSubmitted, storeId);
             }
 
             //prepare available tax categories

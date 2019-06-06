@@ -6453,6 +6453,10 @@ namespace Nop.Services.Installation
                 EuVatUseWebService = false,
                 EuVatAssumeValid = false,
                 EuVatEmailAdminWhenNewVatSubmitted = false,
+                HrOibEnabled = false,
+                HrOibShopCountryId = 0,
+                HrOibAssumeValid = false,
+                HrOibEmailAdminWhenNewOibSubmitted = false,
                 LogErrors = false
             });
 

@@ -27,6 +27,7 @@ namespace Nop.Data.Mapping.Stores
             builder.Property(store => store.CompanyAddress).HasMaxLength(1000);
             builder.Property(store => store.CompanyPhoneNumber).HasMaxLength(1000);
             builder.Property(store => store.CompanyVat).HasMaxLength(1000);
+            builder.Property(store => store.CompanyOib).HasMaxLength(1000);
 
             base.Configure(builder);
         }

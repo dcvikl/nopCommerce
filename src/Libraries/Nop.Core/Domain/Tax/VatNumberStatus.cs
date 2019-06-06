@@ -25,4 +25,30 @@ namespace Nop.Core.Domain.Tax
         /// </summary>
         Invalid = 30
     }
+
+    /// <summary>
+    /// Represents the OIB number status enumeration
+    /// </summary>
+    public enum OibNumberStatus
+    {
+        /// <summary>
+        /// Unknown
+        /// </summary>
+        Unknown = 0,
+
+        /// <summary>
+        /// Empty
+        /// </summary>
+        Empty = 10,
+
+        /// <summary>
+        /// Valid
+        /// </summary>
+        Valid = 20,
+
+        /// <summary>
+        /// Invalid
+        /// </summary>
+        Invalid = 30
+    }
 }

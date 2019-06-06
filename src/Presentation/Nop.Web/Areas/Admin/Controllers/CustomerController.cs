@@ -602,6 +602,30 @@ namespace Nop.Web.Areas.Admin.Controllers
                         }
                     }
 
+                    //OIB number
+                    if (_taxSettings.HrOibEnabled)
+                    {
+                        var prevOibNumber = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.OibNumberAttribute);
+
+                        _genericAttributeService.SaveAttribute(customer, NopCustomerDefaults.OibNumberAttribute, model.OibNumber);
+                        //set OIB number status
+                        if (!string.IsNullOrEmpty(model.OibNumber))
+                        {
+                            if (!model.OibNumber.Equals(prevOibNumber, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                _genericAttributeService.SaveAttribute(customer,
+                                    NopCustomerDefaults.OibNumberStatusIdAttribute,
+                                    (int)_taxService.GetOibNumberStatus(model.OibNumber));
+                            }
+                        }
+                        else
+                        {
+                            _genericAttributeService.SaveAttribute(customer,
+                                NopCustomerDefaults.OibNumberStatusIdAttribute,
+                                (int)OibNumberStatus.Empty);
+                        }
+                    }
+
                     //vendor
                     customer.VendorId = model.VendorId;
 
@@ -829,6 +853,45 @@ namespace Nop.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Edit", new { id = customer.Id });
         }
+
+        [HttpPost, ActionName("Edit")]
+        [FormValueRequired("markOibNumberAsValid")]
+        public virtual IActionResult MarkOibNumberAsValid(CustomerModel model)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
+                return AccessDeniedView();
+
+            //try to get a customer with the specified id
+            var customer = _customerService.GetCustomerById(model.Id);
+            if (customer == null)
+                return RedirectToAction("List");
+
+            _genericAttributeService.SaveAttribute(customer,
+                NopCustomerDefaults.OibNumberStatusIdAttribute,
+                (int)OibNumberStatus.Valid);
+
+            return RedirectToAction("Edit", new { id = customer.Id });
+        }
+
+        [HttpPost, ActionName("Edit")]
+        [FormValueRequired("markOibNumberAsInvalid")]
+        public virtual IActionResult MarkOibNumberAsInvalid(CustomerModel model)
+        {
+            if (!_permissionService.Authorize(StandardPermissionProvider.ManageCustomers))
+                return AccessDeniedView();
+
+            //try to get a customer with the specified id
+            var customer = _customerService.GetCustomerById(model.Id);
+            if (customer == null)
+                return RedirectToAction("List");
+
+            _genericAttributeService.SaveAttribute(customer,
+                NopCustomerDefaults.OibNumberStatusIdAttribute,
+                (int)OibNumberStatus.Invalid);
+
+            return RedirectToAction("Edit", new { id = customer.Id });
+        }
+
 
         [HttpPost, ActionName("Edit")]
         [FormValueRequired("remove-affiliate")]

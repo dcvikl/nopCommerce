@@ -291,6 +291,7 @@ namespace Nop.Web.Factories
             if (!excludeProperties)
             {
                 model.VatNumber = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.VatNumberAttribute);
+                model.OibNumber = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.OibNumberAttribute);
                 model.FirstName = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.FirstNameAttribute);
                 model.LastName = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.LastNameAttribute);
                 model.Gender = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.GenderAttribute);
@@ -372,8 +373,11 @@ namespace Nop.Web.Factories
             }
 
             model.DisplayVatNumber = _taxSettings.EuVatEnabled;
+            model.DisplayOibNumber = _taxSettings.HrOibEnabled;
             model.VatNumberStatusNote = _localizationService.GetLocalizedEnum((VatNumberStatus)_genericAttributeService
                 .GetAttribute<int>(customer, NopCustomerDefaults.VatNumberStatusIdAttribute));
+            model.OibNumberStatusNote = _localizationService.GetLocalizedEnum((OibNumberStatus)_genericAttributeService
+                .GetAttribute<int>(customer, NopCustomerDefaults.OibNumberStatusIdAttribute));
             model.GenderEnabled = _customerSettings.GenderEnabled;
             model.DateOfBirthEnabled = _customerSettings.DateOfBirthEnabled;
             model.DateOfBirthRequired = _customerSettings.DateOfBirthRequired;

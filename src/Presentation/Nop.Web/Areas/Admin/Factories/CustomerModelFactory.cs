@@ -648,6 +648,7 @@ namespace Nop.Web.Areas.Admin.Factories
 
                 model.Id = customer.Id;
                 model.DisplayVatNumber = _taxSettings.EuVatEnabled;
+                model.DisplayOibNumber = _taxSettings.HrOibEnabled;
                 model.AllowSendingOfWelcomeMessage = customer.IsRegistered() &&
                     _customerSettings.UserRegistrationType == UserRegistrationType.AdminApproval;
                 model.AllowReSendingOfActivationMessage = customer.IsRegistered() && !customer.Active &&
@@ -681,6 +682,9 @@ namespace Nop.Web.Areas.Admin.Factories
                     model.VatNumber = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.VatNumberAttribute);
                     model.VatNumberStatusNote = _localizationService.GetLocalizedEnum((VatNumberStatus)_genericAttributeService
                         .GetAttribute<int>(customer, NopCustomerDefaults.VatNumberStatusIdAttribute));
+                    model.OibNumber = _genericAttributeService.GetAttribute<string>(customer, NopCustomerDefaults.OibNumberAttribute);
+                    model.OibNumberStatusNote = _localizationService.GetLocalizedEnum((OibNumberStatus)_genericAttributeService
+                        .GetAttribute<int>(customer, NopCustomerDefaults.OibNumberStatusIdAttribute));
                     model.CreatedOn = _dateTimeHelper.ConvertToUserTime(customer.CreatedOnUtc, DateTimeKind.Utc);
                     model.LastActivityDate = _dateTimeHelper.ConvertToUserTime(customer.LastActivityDateUtc, DateTimeKind.Utc);
                     model.LastIpAddress = customer.LastIpAddress;

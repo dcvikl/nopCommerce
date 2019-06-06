@@ -243,6 +243,7 @@ namespace Nop.Web.Factories
 
             //VAT number
             model.VatNumber = order.VatNumber;
+            model.OibNumber = order.OibNumber;
 
             //payment method
             var paymentMethod = _paymentService.LoadPaymentMethodBySystemName(order.PaymentMethodSystemName);

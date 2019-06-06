@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    //Html.AddScriptParts(ResourceLocation.Head, "~/Plugins/Misc.HomePageProduct/Content/js/PublicPage.js");
+    //Html.AddScriptParts(ResourceLocation.Head, "~/Plugins/Misc.HomePageProduct/Content/bootstrap-3.2.0/js/bootstrap.js");
+    //Html.AddCssFileParts(ResourceLocation.Head, "~/Plugins/Misc.HomePageProduct/Content/HomePageCategory/HomePageProductCategory.css");
+}
+<div class="page home-page">
+    <div class="page-body">
+        @Html.Widget("home_page_top")
+        @Html.Action("TopicBlock", "Topic", new { systemName = "Catalogues" })
+        @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageText" })
+        @*<div id="HomePageProduct">
+        @Html.Action("HomePageProductsBySpecialCategory", "HomePageProduct", new { area = "" })
+    </div>*@
+        @Html.Widget("home_page_before_categories")
+        @Html.Action("HomepageCategories", "Catalog")
+        @Html.Widget("home_page_before_products")
+        @Html.Action("HomepageProducts", "Product")
+        @Html.Widget("home_page_before_best_sellers")
+        @Html.Action("HomepageBestSellers", "Product")
+        @Html.Widget("home_page_before_news")
+        @Html.Action("HomePageNews", "News")
+        @Html.Widget("home_page_before_poll")
+        @Html.Action("HomePagePolls", "Poll")
+        @Html.Widget("home_page_bottom")
+    </div>
+</div>

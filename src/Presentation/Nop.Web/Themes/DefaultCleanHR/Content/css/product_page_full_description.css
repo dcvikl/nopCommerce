@@ -1,0 +1,49 @@
+﻿/**** opisi ***/
+.ico_centarPromjer, .ico_dimenzije,.ico_dimenzijeLeca,.ico_dimenzijeOkvira,.ico_duzina,.ico_duzinaLece,.ico_duzinaRuckica,.ico_pakiranje,.ico_sirinaFronte,.ico_sirinaMosta,.ico_tezina,.ico_vanjskiPromjer,.ico_visinaLece{
+    background-repeat: no-repeat;
+	background-size: 32px;
+	height: 32px;
+	padding-right: 30px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.ico_sirinaFronte {
+	background-image:url("../images/ico_sirinaFronte.svg");
+}
+.ico_duzinaLece {
+	background-image:url("../images/ico_duzinaLece.svg");
+}
+.ico_visinaLece {
+	background-image:url("../images/ico_visinaLece.svg");
+}
+.ico_dimenzijeLeca {
+	background-image:url("../images/ico_dimenzijeLeca.svg");
+}
+.ico_dimenzijeOkvira {
+	background-image:url("../images/ico_dimenzijeOkvira.svg");
+}
+.ico_sirinaMosta {
+	background-image:url("../images/ico_sirinaMosta.svg");
+    background-repeat: no-repeat;
+}
+.ico_duzinaRuckica {
+	background-image:url("../images/ico_duzinaRuckica.svg");
+}
+.ico_duzina {
+	background-image:url("../images/ico_duzina.svg");
+}
+.ico_dimenzije {
+	background-image:url("../images/ico_dimenzije.svg");
+}
+.ico_centarPromjer {
+	background-image: url("../images/ico_centarPromjer.svg");
+}
+.ico_vanjskiPromjer {
+	background-image:url("../images/ico_vanjskiPromjer.svg");
+}
+.ico_tezina {
+	background-image:url("../images/ico_tezina.svg");
+}
+.ico_pakiranje {
+	background-image:url("../images/ico_pakiranje.svg");
+}

@@ -17,6 +17,7 @@ namespace Nop.Web.Areas.Admin.Models.Settings
         {
             TaxCategories = new List<SelectListItem>();
             EuVatShopCountries = new List<SelectListItem>();
+            HrOibShopCountries = EuVatShopCountries;
             DefaultTaxAddress = new AddressModel();
         }
 
@@ -124,6 +125,29 @@ namespace Nop.Web.Areas.Admin.Models.Settings
         [NopResourceDisplayName("Admin.Configuration.Settings.Tax.EuVatEmailAdminWhenNewVatSubmitted")]
         public bool EuVatEmailAdminWhenNewVatSubmitted { get; set; }
         public bool EuVatEmailAdminWhenNewVatSubmitted_OverrideForStore { get; set; }
+
+        //HR OIB
+        [NopResourceDisplayName("Admin.Configuration.Settings.Tax.HrOibEnabled")]
+        public bool HrOibEnabled { get; set; }
+        public bool HrOibEnabled_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.Tax.HrOibShopCountry")]
+        public int HrOibShopCountryId { get; set; }
+        public bool HrOibShopCountryId_OverrideForStore { get; set; }
+        public IList<SelectListItem> HrOibShopCountries { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.Tax.HrOibAssumeValid")]
+        public bool HrOibAssumeValid { get; set; }
+        public bool HrOibAssumeValid_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.Tax.HrOibAllowVatExemption")]
+        public bool HrOibAllowOibExemption { get; set; }
+        public bool HrOibAllowOibExemption_OverrideForStore { get; set; }
+
+        [NopResourceDisplayName("Admin.Configuration.Settings.Tax.HrOibEmailAdminWhenNewVatSubmitted")]
+        public bool HrOibEmailAdminWhenNewOibSubmitted { get; set; }
+        public bool HrOibEmailAdminWhenNewOibSubmitted_OverrideForStore { get; set; }
+
 
         #endregion
     }

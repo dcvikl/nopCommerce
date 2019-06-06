@@ -237,6 +237,12 @@ namespace Nop.Core.Domain.Messages
         public const string NewVatSubmittedStoreOwnerNotification = "NewVATSubmitted.StoreOwnerNotification";
 
         /// <summary>
+        /// Represents system name of notification store owner about submitting new OIB
+        /// </summary>
+        public const string NewOibSubmittedStoreOwnerNotification = "NewOIBSubmitted.StoreOwnerNotification";
+
+
+        /// <summary>
         /// Represents system name of notification store owner about new blog comment
         /// </summary>
         public const string BlogCommentNotification = "Blog.BlogComment";

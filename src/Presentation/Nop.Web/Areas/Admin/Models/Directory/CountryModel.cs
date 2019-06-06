@@ -48,6 +48,9 @@ namespace Nop.Web.Areas.Admin.Models.Directory
         [NopResourceDisplayName("Admin.Configuration.Countries.Fields.SubjectToVat")]
         public bool SubjectToVat { get; set; }
 
+        [NopResourceDisplayName("Admin.Configuration.Countries.Fields.SubjectToOib")]
+        public bool SubjectToOib { get; set; }
+
         [NopResourceDisplayName("Admin.Configuration.Countries.Fields.Published")]
         public bool Published { get; set; }
 
